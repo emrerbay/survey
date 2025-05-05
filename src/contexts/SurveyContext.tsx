@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useMemo, ReactNode } from "react";
-import { Survey, Question, getRandomSurvey } from "@/models/survey";
+import { Survey, getRandomSurvey } from "@/models/survey";
 import { saveSurveyResponses } from "@/firebase/surveyService";
 
 interface SurveyContextType {
@@ -115,6 +115,11 @@ export const SurveyProvider: React.FC<{ children: ReactNode }> = ({ children }) 
             isSingleQuestionMode,
             isFirstQuestion,
             isLastQuestion,
+            currentStep,
+            totalSteps,
+            nextQuestion,
+            prevQuestion,
+            submitSurvey
         ]
     );
 

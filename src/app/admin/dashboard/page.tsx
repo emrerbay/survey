@@ -10,7 +10,10 @@ import { useRouter } from "next/navigation";
 interface SurveyResponse {
     id: string;
     surveyId: string;
-    createdAt: any;
+    createdAt: {
+        seconds: number;
+        nanoseconds: number;
+    } | Date;
     answers: Record<string, string | number>;
 }
 
@@ -58,10 +61,12 @@ export default function AdminDashboard() {
             // Düzleştirilmiş veriyi oluştur
             const flatData = responses.map(response => {
                 // Temel alanları ekle
-                const flatRow: Record<string, any> = {
+                const flatRow: Record<string, string | number | Date> = {
                     "ID": response.id,
                     "Anket ID": response.surveyId,
-                    "Oluşturma Tarihi": response.createdAt.toLocaleString("tr-TR")
+                    "Oluşturma Tarihi": response.createdAt instanceof Date
+                        ? response.createdAt.toLocaleString("tr-TR")
+                        : new Date().toLocaleString("tr-TR")
                 };
 
                 // Yanıtları ekle
@@ -144,7 +149,7 @@ export default function AdminDashboard() {
                 )}
 
                 <div className="bg-white shadow rounded-lg p-6">
-                    <h2 className="text-xl font-semibold mb-4 text-black">Anket Yanıtları ({responses.length})</h2>
+                    <h2 className="text-xl font-semibold mb-4">Anket Yanıtları ({responses.length})</h2>
 
                     {responses.length === 0 ? (
                         <p className="text-gray-500">Henüz kaydedilmiş anket yanıtı bulunmamaktadır.</p>
@@ -183,7 +188,9 @@ export default function AdminDashboard() {
                                                 {response.surveyId === "survey1" ? "TikTok Anketi" : "Makro Influencer Anketi"}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                {response.createdAt.toLocaleString("tr-TR")}
+                                                {response.createdAt instanceof Date
+                                                    ? response.createdAt.toLocaleString("tr-TR")
+                                                    : new Date().toLocaleString("tr-TR")}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                                 {response.answers.q0 || "-"}

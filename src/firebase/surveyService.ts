@@ -1,6 +1,5 @@
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "./config";
-import { Survey } from "@/models/survey";
 
 // Anket cevaplarını Firestore'a kaydeden fonksiyon
 export const saveSurveyResponses = async (

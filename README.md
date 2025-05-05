@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Anket Uygulaması
 
 Bu proje, TikTok kullanım alışkanlıklarını ölçen bir anket uygulamasıdır. Kullanıcılara rastgele bir anket gösterilir ve kullanıcıların anketi tamamlamaları beklenir.
@@ -83,3 +84,6 @@ NEXT_PUBLIC_FIREBASE_APP_ID=your-app-id
 ## Lisans
 
 MIT
+=======
+# survey
+>>>>>>> 3319ced97971946d8bb1d852ee48295be65d878f
