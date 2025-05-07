@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useMemo, ReactNode } from "react";
+import React, { createContext, useContext, useState, useMemo, ReactNode, useCallback } from "react";
 import { Survey, getRandomSurvey } from "@/models/survey";
 import { saveSurveyResponses } from "@/firebase/surveyService";
 
@@ -40,14 +40,14 @@ export const SurveyProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     // İlk 5 soru için tek tek gösterim, sonrası için hepsi birlikte
     const isSingleQuestionMode = currentQuestionIndex < 5;
 
-    const setAnswer = (questionId: string, value: string | number) => {
+    const setAnswer = useCallback((questionId: string, value: string | number) => {
         setAnswers((prev) => ({
             ...prev,
             [questionId]: value,
         }));
-    };
+    }, []);
 
-    const nextQuestion = () => {
+    const nextQuestion = useCallback(() => {
         if (isSingleQuestionMode) {
             if (currentQuestionIndex < currentSurvey.questions.length - 1) {
                 setCurrentQuestionIndex((prev) => prev + 1);
@@ -55,15 +55,15 @@ export const SurveyProvider: React.FC<{ children: ReactNode }> = ({ children }) 
         } else {
             // Tüm soruların gösterildiği sayfada, submit işlemi gerçekleşecek
         }
-    };
+    }, [isSingleQuestionMode, currentQuestionIndex, currentSurvey.questions.length]);
 
-    const prevQuestion = () => {
+    const prevQuestion = useCallback(() => {
         if (currentQuestionIndex > 0) {
             setCurrentQuestionIndex((prev) => prev - 1);
         }
-    };
+    }, [currentQuestionIndex]);
 
-    const submitSurvey = async () => {
+    const submitSurvey = useCallback(async () => {
         setIsSubmitting(true);
 
         try {
@@ -82,7 +82,7 @@ export const SurveyProvider: React.FC<{ children: ReactNode }> = ({ children }) 
         } finally {
             setIsSubmitting(false);
         }
-    };
+    }, [currentSurvey.id, answers]);
 
     // İlerleme çubuğu için adım bilgileri
     const currentStep = isSingleQuestionMode ? currentQuestionIndex + 1 : 6;
@@ -117,6 +117,7 @@ export const SurveyProvider: React.FC<{ children: ReactNode }> = ({ children }) 
             isLastQuestion,
             currentStep,
             totalSteps,
+            setAnswer,
             nextQuestion,
             prevQuestion,
             submitSurvey

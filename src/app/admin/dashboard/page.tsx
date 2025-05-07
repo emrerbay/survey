@@ -15,7 +15,9 @@ import {
     Legend,
     ArcElement,
     PointElement,
-    LineElement
+    LineElement,
+    ChartOptions,
+    ChartData
 } from 'chart.js';
 import { Bar, Pie, Doughnut, Line } from 'react-chartjs-2';
 
@@ -43,17 +45,31 @@ interface SurveyResponse {
     answers: Record<string, string | number>;
 }
 
+// Chart veri tipleri
+interface ChartDataType extends ChartData<'pie' | 'bar' | 'doughnut' | 'line'> {
+    labels: string[];
+    datasets: {
+        label: string;
+        data: number[];
+        backgroundColor: string | string[];
+        borderColor: string | string[];
+        borderWidth?: number;
+        fill?: boolean;
+        tension?: number;
+    }[];
+}
+
 export default function AdminDashboard() {
     const router = useRouter();
     const [responses, setResponses] = useState<SurveyResponse[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const [exporting, setExporting] = useState(false);
-    const [genderData, setGenderData] = useState<any>(null);
-    const [ageData, setAgeData] = useState<any>(null);
-    const [surveyTypeData, setSurveyTypeData] = useState<any>(null);
-    const [dailyResponsesData, setDailyResponsesData] = useState<any>(null);
-    const [questionResponseData, setQuestionResponseData] = useState<any>(null);
+    const [genderData, setGenderData] = useState<ChartDataType | null>(null);
+    const [ageData, setAgeData] = useState<ChartDataType | null>(null);
+    const [surveyTypeData, setSurveyTypeData] = useState<ChartDataType | null>(null);
+    const [dailyResponsesData, setDailyResponsesData] = useState<ChartDataType | null>(null);
+    const [questionResponseData, setQuestionResponseData] = useState<ChartDataType | null>(null);
 
     // Sayfa yüklendiğinde Firebase'den verileri al
     useEffect(() => {
@@ -351,7 +367,7 @@ export default function AdminDashboard() {
 
                 // Sıralanmış soruları ekle
                 let questionNumber = 1; // 5. sorudan sonrasını Soru 1'den başlat
-                remainingAnswers.forEach(([key, value]) => {
+                remainingAnswers.forEach(([, value]) => {
                     flatRow[`Soru ${questionNumber}`] = value;
                     questionNumber++;
                 });
