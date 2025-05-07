@@ -16,7 +16,6 @@ import {
     ArcElement,
     PointElement,
     LineElement,
-    ChartOptions,
     ChartData
 } from 'chart.js';
 import { Bar, Pie, Doughnut, Line } from 'react-chartjs-2';
