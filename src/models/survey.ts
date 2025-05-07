@@ -81,12 +81,21 @@ export const survey1: Survey = {
       answers: [
         { id: "q4a1", text: "Gelirim yok", value: "no-income" },
         { id: "q4a2", text: "1 – 9.999 TL", value: "1-9999" },
-        { id: "q4a3", text: "10.000 – 19.999 TL", value: "10000-19999" },
-        { id: "q4a4", text: "20.000 – 29.999 TL", value: "20000-29999" },
-        { id: "q4a5", text: "30.000 – 39.999 TL", value: "30000-39999" },
-        { id: "q4a6", text: "40.000 – 49.999 TL", value: "40000-49999" },
-        { id: "q4a7", text: "50.000 TL ve üzeri", value: "50000+" },
+        { id: "q4a3", text: "10.000 – 24.999 TL", value: "10000-24999" },
+        { id: "q4a4", text: "25.000 – 49.999 TL", value: "25000-49999" },
+        { id: "q4a5", text: "50.000 – 74.999 TL", value: "50000-74999" },
+        { id: "q4a6", text: "75.000 – 99.999 TL", value: "75000-99999" },
+        { id: "q4a7", text: "100.000 TL ve üzeri", value: "100000+" },
+        { id: "q4a8", text: "Cevap vermek istemiyorum", value: "no-answer" },
       ],
+    },
+    // TikTok kullanım açıklaması
+    {
+      id: "q4_tiktok_info",
+      text: "TikTok'ta aşağıdaki faaliyetleri ne sıklıkla gerçekleştirdiğinizi belirtiniz: (Hiçbir zaman, Nadiren, Bazen, Sık sık, Her zaman)",
+      type: "text",
+      required: false,
+      answers: [],
     },
     // Likert ölçeği soruları 5-16
     {
@@ -415,6 +424,16 @@ const remainingLikertQuestions: Question[] = [
     41,
     "Daha fazla şey satın alabilecek gücüm olsaydı daha mutlu olurdum."
   ),
+
+  // Mikro influencer açıklamasını ekle
+  {
+    id: "q41_info",
+    text: "Mikro-influencer, genellikle 10.000 ila 100.000 arası takipçiye sahip olan sosyal medya kullanıcılarını ifade eder.",
+    type: "text",
+    required: false,
+    answers: [],
+  },
+
   generateLikertQuestion(
     42,
     "Mikro influencer'ın içerikleriyle ilgili olarak sık sık geliştirme önerilerinde bulunurum."
@@ -568,12 +587,21 @@ export const survey2: Survey = {
       answers: [
         { id: "qs2_4a1", text: "Gelirim yok", value: "no-income" },
         { id: "qs2_4a2", text: "1 – 9.999 TL", value: "1-9999" },
-        { id: "qs2_4a3", text: "10.000 – 19.999 TL", value: "10000-19999" },
-        { id: "qs2_4a4", text: "20.000 – 29.999 TL", value: "20000-29999" },
-        { id: "qs2_4a5", text: "30.000 – 39.999 TL", value: "30000-39999" },
-        { id: "qs2_4a6", text: "40.000 – 49.999 TL", value: "40000-49999" },
-        { id: "qs2_4a7", text: "50.000 TL ve üzeri", value: "50000+" },
+        { id: "qs2_4a3", text: "10.000 – 24.999 TL", value: "10000-24999" },
+        { id: "qs2_4a4", text: "25.000 – 49.999 TL", value: "25000-49999" },
+        { id: "qs2_4a5", text: "50.000 – 74.999 TL", value: "50000-74999" },
+        { id: "qs2_4a6", text: "75.000 – 99.999 TL", value: "75000-99999" },
+        { id: "qs2_4a7", text: "100.000 TL ve üzeri", value: "100000+" },
+        { id: "qs2_4a8", text: "Cevap vermek istemiyorum", value: "no-answer" },
       ],
+    },
+    // TikTok kullanım açıklaması
+    {
+      id: "qs2_4_tiktok_info",
+      text: "TikTok'ta aşağıdaki faaliyetleri ne sıklıkla gerçekleştirdiğinizi belirtiniz: (Hiçbir zaman, Nadiren, Bazen, Sık sık, Her zaman)",
+      type: "text",
+      required: false,
+      answers: [],
     },
   ],
 };
@@ -747,6 +775,14 @@ survey2.questions = [
   ...survey2.questions,
   ...tiktokHabitsQuestions,
   ...tiktokLifestyleQuestions,
+  // Makro influencer açıklamasını ekle
+  {
+    id: "qs2_macro_info",
+    text: "Makro-influencer, genellikle 100.000 üzerinde takipçiye sahip olan sosyal medya kullanıcılarını ifade eder.",
+    type: "text",
+    required: false,
+    answers: [],
+  },
   ...macroInfluencerQuestions,
 ];
 

@@ -15,25 +15,18 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-blue-50 to-blue-100 p-4">
       <div className="max-w-2xl w-full bg-white rounded-lg shadow-lg p-8 text-center">
-        <h1 className="text-3xl font-bold text-gray-800 mb-6">Anket Uygulaması</h1>
+        <h1 className="text-3xl font-bold text-gray-800 mb-6"> Bilimsel Araştırma</h1>
 
-        <div className="mb-8">
-          <p className="text-gray-600 mb-4">
-            Bu anket uygulaması TikTok kullanım alışkanlıklarını incelemek için tasarlanmıştır.
+        <div className="mb-8 text-gray-600">
+          <p className="mb-4">
+            Çalışmadaki anket formu, TikTok platformu kullanım amacı ve platformda yer alan influencerların takipçileri üzerindeki etkilerinin belirlenmesi amacıyla hazırlanmıştır.
           </p>
-          <p className="text-gray-600">
-            Anket yaklaşık <span className="font-semibold">10-15 dakika</span> sürecektir.
+          <p className="mb-4">
+            Vereceğiniz cevaplar yalnızca bilimsel amaçlarla kullanılacak olup, üçüncü kişilerle kesinlikle paylaşılmayacaktır.
           </p>
-        </div>
-
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold text-gray-700 mb-3">Önemli Bilgiler</h2>
-          <ul className="text-left text-gray-600 space-y-2 list-disc list-inside">
-            <li>Ankete katılım tamamen gönüllüdür.</li>
-            <li>Verdiğiniz bilgiler gizli tutulacak ve sadece bilimsel amaçlarla kullanılacaktır.</li>
-            <li>Lütfen soruları dikkatlice okuyarak cevaplayınız.</li>
-            <li>İlk 4 soru tek tek gösterilecek, sonraki sorular tek sayfada görüntülenecektir.</li>
-          </ul>
+          <p className="mb-4">
+            Katılımınız için teşekkür ederiz.
+          </p>
         </div>
 
         <button
