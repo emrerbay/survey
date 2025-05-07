@@ -258,7 +258,7 @@ export default function SurveyPage() {
     }, []);
 
     return (
-        <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-6">
+        <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-2">
             <ProgressBar currentStep={currentStep} totalSteps={totalSteps} />
 
             <div className="mb-6">
