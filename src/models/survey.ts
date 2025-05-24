@@ -397,31 +397,23 @@ const remainingLikertQuestions: Question[] = [
   ),
   generateLikertQuestion(
     34,
-    "Gerçek dünyaya kıyasla TikTok'ta sosyalleşmek bana daha anlamlı geliyor."
-  ),
-  generateLikertQuestion(
-    35,
-    "TikTok'ta etkileşimde bulunmak, sosyal çevremle daha fazla etkileşimde olduğumu hissettiriyor."
-  ),
-  generateLikertQuestion(
-    36,
     "Pahalı evlere, arabalara ve kıyafetlere sahip insanlara hayranlık duyarım."
   ),
   generateLikertQuestion(
-    37,
+    35,
     "Sahip olduğum şeyler, hayatta ne kadar başarılı olduğum hakkında çok şey anlatır."
   ),
   generateLikertQuestion(
-    38,
+    36,
     "Bir şeyler satın almak bana büyük bir keyif verir."
   ),
-  generateLikertQuestion(39, "Hayatımda bolca lüks olmasını severim."),
+  generateLikertQuestion(37, "Hayatımda bolca lüks olmasını severim."),
   generateLikertQuestion(
-    40,
+    38,
     "Sahip olmadığım bazı şeylere sahip olsaydım hayatım daha iyi olurdu."
   ),
   generateLikertQuestion(
-    41,
+    39,
     "Daha fazla şey satın alabilecek gücüm olsaydı daha mutlu olurdum."
   ),
 
@@ -435,79 +427,79 @@ const remainingLikertQuestions: Question[] = [
   },
 
   generateLikertQuestion(
-    42,
+    40,
     "Mikro influencer'ın içerikleriyle ilgili olarak sık sık geliştirme önerilerinde bulunurum."
   ),
   generateLikertQuestion(
-    43,
+    41,
     "Kişisel ihtiyaçlarımı mikro influencer'a sık sık ifade ederim."
   ),
   generateLikertQuestion(
-    44,
+    42,
     "Mikro influencer ile birlikte, karşılaştığım sorunlara çözüm bulduğum olur."
   ),
   generateLikertQuestion(
-    45,
+    43,
     "Mikro influencer yeni içerikler oluştururken aktif olarak sürece dahil olurum."
   ),
   generateLikertQuestion(
-    46,
+    44,
     "Mikro influencer, takipçileriyle birlikte çözümler üretmeye teşvik eder."
   ),
   generateAttentionCheckQuestion(
-    47,
+    45,
     'Lütfen bu soruda "5 = Kesinlikle katılıyorum" seçeneğini işaretleyiniz'
   ),
   generateLikertQuestion(
-    48,
+    46,
     "Mikro influencer veya takipçileri, birbirlerine karşı öfkesini kontrol edemez."
   ),
   generateLikertQuestion(
-    49,
+    47,
     "Mikro influencer veya takipçileri birbirlerine karşı uygunsuz beden dili kullanır."
   ),
   generateLikertQuestion(
-    50,
+    48,
     "Mikro influencer veya takipçilerini birbirlerini sözlü olarak tehdit eder."
   ),
   generateLikertQuestion(
-    51,
+    49,
     "Mikro influencer'ın veya takipçilerinin sözleri, bazı takipçilerin kendilerini dışlanmış veya ayrımcılığa uğramış hissetmesine neden olur."
   ),
   generateLikertQuestion(
-    52,
+    50,
     "Mikro influencer veya takipçileri, birbirlerine karşı uygunsuz ifadeler kullanarak tacizde bulunur."
   ),
   generateLikertQuestion(
-    53,
+    51,
     "Bazı takipçiler mikro influencer'dan mantıksız taleplerde bulunur."
   ),
   generateLikertQuestion(
-    54,
+    52,
     "Bazı takipçiler, influencer'ın içerik süreciyle iş birliği yapmaz/beğenmez."
   ),
   generateLikertQuestion(
-    55,
+    53,
     "Bazı takipçiler, yaşanan sorunların sorumluluğunu mikro influencer'a yükler."
   ),
   generateLikertQuestion(
-    56,
+    54,
     "Bazı takipçiler, mikro-influencer'ın dijital içeriklerine kaba şekilde yaklaşır."
   ),
   generateLikertQuestion(
-    57,
+    55,
     "Bazı takipçiler, influencer tarafından sunulan içerik ya da kampanyaları kötüye kullanır."
   ),
   generateLikertQuestion(
-    58,
+    56,
     "Takip ettiğim mikro-influencerların önerdiği ürünleri satın alırım"
   ),
   generateLikertQuestion(
-    59,
+    57,
     "Mikro-influencerların sosyal medya hesaplarında tanıttığı ürünleri satın alma isteği duyarım"
   ),
   generateLikertQuestion(
-    60,
+    58,
     "Güvendiğim mikro-influencerların desteklediği ürünleri satın alma olasılığım yüksektir"
   ),
   generateLikertQuestion(
@@ -656,8 +648,6 @@ const tiktokLifestyleQuestions = Array.from({ length: 24 }, (_, i) => {
     "TikTok kullanamadığımda kendimi sıkılmış hissederim.",
     "Gerçek dünyaya kıyasla TikTok'ta sosyalleşirken daha mutlu olurum.",
     "TikTok kullanamadığımda kendimi endişeli hissederim.",
-    "Gerçek dünyaya kıyasla TikTok'ta sosyalleşmek bana daha anlamlı geliyor.",
-    "TikTok'ta etkileşimde bulunmak, sosyal çevremle daha fazla etkileşimde olduğumu hissettiriyor.",
     "Pahalı evlere, arabalara ve kıyafetlere sahip insanlara hayranlık duyarım.",
     "Sahip olduğum şeyler, hayatta ne kadar başarılı olduğum hakkında çok şey anlatır.",
     "Bir şeyler satın almak bana büyük bir keyif verir.",

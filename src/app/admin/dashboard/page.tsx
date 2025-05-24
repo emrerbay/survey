@@ -267,7 +267,7 @@ export default function AdminDashboard() {
         });
     };
 
-    // Excel'e aktarma işlevi
+    // Excel'e aktarma işlevi - TÜM ANKETLER
     const exportToExcel = () => {
         setExporting(true);
 
@@ -387,7 +387,211 @@ export default function AdminDashboard() {
             const url = URL.createObjectURL(blob);
             const link = document.createElement("a");
             link.href = url;
-            link.download = `anket-sonuclari-${new Date().toISOString().slice(0, 10)}.csv`;
+            link.download = `tum-anket-sonuclari-${new Date().toISOString().slice(0, 10)}.csv`;
+            link.click();
+
+            // Temizlik
+            URL.revokeObjectURL(url);
+        } catch (err) {
+            console.error("Excel dışa aktarma sırasında hata oluştu:", err);
+            setError("Dışa aktarma başarısız oldu. Lütfen tekrar deneyin.");
+        } finally {
+            setExporting(false);
+        }
+    };
+
+    // Sadece Mikro anket yanıtlarını CSV olarak indirme
+    const exportMicroToExcel = () => {
+        setExporting(true);
+
+        try {
+            // Sadece Mikro anket yanıtlarını filtrele
+            const microResponses = responses.filter(response => response.surveyId === "survey1");
+
+            // Düzleştirilmiş veriyi oluştur
+            const flatData = microResponses.map(response => {
+                // Temel alanları ekle
+                const flatRow: Record<string, string | number | Date> = {
+                    "Oluşturma Tarihi": response.createdAt instanceof Date
+                        ? response.createdAt.toLocaleString("tr-TR")
+                        : new Date().toLocaleString("tr-TR")
+                };
+
+                // İsim (0. soru)
+                if ("q0" in response.answers) {
+                    flatRow["İsim"] = response.answers.q0;
+                }
+
+                // Yaş (1. soru)
+                if ("q1" in response.answers) {
+                    flatRow["Yaş"] = response.answers.q1;
+                }
+
+                // Cinsiyet (2. soru)
+                if ("q2" in response.answers) {
+                    const gender = response.answers.q2;
+                    flatRow["Cinsiyet"] = gender === "male" ? "Erkek" : gender === "female" ? "Kadın" : gender;
+                }
+
+                // Eğitim (3. soru)
+                if ("q3" in response.answers) {
+                    flatRow["Eğitim"] = response.answers.q3;
+                }
+
+                // Gelir (4. soru)
+                if ("q4" in response.answers) {
+                    flatRow["Gelir"] = response.answers.q4;
+                }
+
+                // Soru ID'lerini sıralama yardımcı fonksiyonu
+                const getQuestionNumber = (key: string): number => {
+                    if (key.startsWith('q') && key.length > 1) {
+                        const numPart = key.substring(1);
+                        if (!isNaN(parseInt(numPart))) {
+                            return parseInt(numPart);
+                        }
+                    }
+                    return Number.MAX_SAFE_INTEGER;
+                };
+
+                // Diğer tüm soruları sıralı olarak ekleyelim (5. sorudan itibaren Soru 1, Soru 2... diye)
+                const remainingAnswers = Object.entries(response.answers)
+                    .filter(([key]) => {
+                        // Survey 1 için q5 ve üzeri olan sorular
+                        return key.startsWith('q') && getQuestionNumber(key) > 4 && !key.includes('_info');
+                    })
+                    .sort((a, b) => {
+                        const aNum = getQuestionNumber(a[0]);
+                        const bNum = getQuestionNumber(b[0]);
+                        return aNum - bNum;
+                    });
+
+                // Sıralanmış soruları ekle
+                let questionNumber = 1; // 5. sorudan sonrasını Soru 1'den başlat
+                remainingAnswers.forEach(([, value]) => {
+                    flatRow[`Soru ${questionNumber}`] = value;
+                    questionNumber++;
+                });
+
+                return flatRow;
+            });
+
+            // Excel çalışma kitabı oluştur
+            const worksheet = utils.json_to_sheet(flatData);
+            const workbook = utils.book_new();
+            utils.book_append_sheet(workbook, worksheet, "Mikro Anket Yanıtları");
+
+            // CSV formatında indir
+            const csvData = write(workbook, { bookType: "csv", type: "array" });
+            const blob = new Blob([csvData], { type: "text/csv;charset=utf-8" });
+
+            // İndirme bağlantısı oluştur
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = `mikro-anket-sonuclari-${new Date().toISOString().slice(0, 10)}.csv`;
+            link.click();
+
+            // Temizlik
+            URL.revokeObjectURL(url);
+        } catch (err) {
+            console.error("Excel dışa aktarma sırasında hata oluştu:", err);
+            setError("Dışa aktarma başarısız oldu. Lütfen tekrar deneyin.");
+        } finally {
+            setExporting(false);
+        }
+    };
+
+    // Sadece Makro anket yanıtlarını CSV olarak indirme
+    const exportMacroToExcel = () => {
+        setExporting(true);
+
+        try {
+            // Sadece Makro anket yanıtlarını filtrele
+            const macroResponses = responses.filter(response => response.surveyId === "survey2");
+
+            // Düzleştirilmiş veriyi oluştur
+            const flatData = macroResponses.map(response => {
+                // Temel alanları ekle
+                const flatRow: Record<string, string | number | Date> = {
+                    "Oluşturma Tarihi": response.createdAt instanceof Date
+                        ? response.createdAt.toLocaleString("tr-TR")
+                        : new Date().toLocaleString("tr-TR")
+                };
+
+                // İsim (0. soru)
+                if ("qs2_0" in response.answers) {
+                    flatRow["İsim"] = response.answers.qs2_0;
+                }
+
+                // Yaş (1. soru)
+                if ("qs2_1" in response.answers) {
+                    flatRow["Yaş"] = response.answers.qs2_1;
+                }
+
+                // Cinsiyet (2. soru)
+                if ("qs2_2" in response.answers) {
+                    const gender = response.answers.qs2_2;
+                    flatRow["Cinsiyet"] = gender === "male" ? "Erkek" : gender === "female" ? "Kadın" : gender;
+                }
+
+                // Eğitim (3. soru)
+                if ("qs2_3" in response.answers) {
+                    flatRow["Eğitim"] = response.answers.qs2_3;
+                }
+
+                // Gelir (4. soru)
+                if ("qs2_4" in response.answers) {
+                    flatRow["Gelir"] = response.answers.qs2_4;
+                }
+
+                // Soru ID'lerini sıralama yardımcı fonksiyonu
+                const getQuestionNumber = (key: string): number => {
+                    if (key.startsWith('qs2_') && key.length > 4) {
+                        const numPart = key.substring(4);
+                        if (!isNaN(parseInt(numPart))) {
+                            return parseInt(numPart);
+                        }
+                    }
+                    return Number.MAX_SAFE_INTEGER;
+                };
+
+                // Diğer tüm soruları sıralı olarak ekleyelim (5. sorudan itibaren Soru 1, Soru 2... diye)
+                const remainingAnswers = Object.entries(response.answers)
+                    .filter(([key]) => {
+                        // Survey 2 için qs2_5 ve üzeri olan sorular
+                        return key.startsWith('qs2_') && getQuestionNumber(key) > 4 && !key.includes('_info');
+                    })
+                    .sort((a, b) => {
+                        const aNum = getQuestionNumber(a[0]);
+                        const bNum = getQuestionNumber(b[0]);
+                        return aNum - bNum;
+                    });
+
+                // Sıralanmış soruları ekle
+                let questionNumber = 1; // 5. sorudan sonrasını Soru 1'den başlat
+                remainingAnswers.forEach(([, value]) => {
+                    flatRow[`Soru ${questionNumber}`] = value;
+                    questionNumber++;
+                });
+
+                return flatRow;
+            });
+
+            // Excel çalışma kitabı oluştur
+            const worksheet = utils.json_to_sheet(flatData);
+            const workbook = utils.book_new();
+            utils.book_append_sheet(workbook, worksheet, "Makro Anket Yanıtları");
+
+            // CSV formatında indir
+            const csvData = write(workbook, { bookType: "csv", type: "array" });
+            const blob = new Blob([csvData], { type: "text/csv;charset=utf-8" });
+
+            // İndirme bağlantısı oluştur
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = `makro-anket-sonuclari-${new Date().toISOString().slice(0, 10)}.csv`;
             link.click();
 
             // Temizlik
@@ -417,20 +621,43 @@ export default function AdminDashboard() {
             <header className="bg-white shadow">
                 <div className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 flex justify-between items-center">
                     <h1 className="text-2xl font-bold text-gray-900">Anket Yönetim Paneli</h1>
-                    <div className="flex gap-4">
+                    <div className="flex gap-2">
                         <button
                             onClick={exportToExcel}
                             disabled={exporting || responses.length === 0}
-                            className={`py-2 px-4 rounded-md text-white font-medium ${exporting || responses.length === 0
+                            className={`py-2 px-3 rounded-md text-white font-medium text-sm ${exporting || responses.length === 0
                                 ? "bg-gray-400 cursor-not-allowed"
                                 : "bg-green-600 hover:bg-green-700"
                                 }`}
+                            title="Tüm anket yanıtlarını CSV olarak indir"
                         >
-                            {exporting ? "Dışa Aktarılıyor..." : "CSV Olarak İndir"}
+                            {exporting ? "Dışa Aktarılıyor..." : "Tüm Anketler CSV"}
+                        </button>
+                        <button
+                            onClick={exportMicroToExcel}
+                            disabled={exporting || responses.filter(r => r.surveyId === "survey1").length === 0}
+                            className={`py-2 px-3 rounded-md text-white font-medium text-sm ${exporting || responses.filter(r => r.surveyId === "survey1").length === 0
+                                ? "bg-gray-400 cursor-not-allowed"
+                                : "bg-blue-600 hover:bg-blue-700"
+                                }`}
+                            title="Sadece Mikro Influencer anket yanıtlarını CSV olarak indir"
+                        >
+                            {exporting ? "Dışa Aktarılıyor..." : "Mikro Anket CSV"}
+                        </button>
+                        <button
+                            onClick={exportMacroToExcel}
+                            disabled={exporting || responses.filter(r => r.surveyId === "survey2").length === 0}
+                            className={`py-2 px-3 rounded-md text-white font-medium text-sm ${exporting || responses.filter(r => r.surveyId === "survey2").length === 0
+                                ? "bg-gray-400 cursor-not-allowed"
+                                : "bg-purple-600 hover:bg-purple-700"
+                                }`}
+                            title="Sadece Makro Influencer anket yanıtlarını CSV olarak indir"
+                        >
+                            {exporting ? "Dışa Aktarılıyor..." : "Makro Anket CSV"}
                         </button>
                         <button
                             onClick={handleLogout}
-                            className="py-2 px-4 bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium rounded-md"
+                            className="py-2 px-4 bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium rounded-md text-sm"
                         >
                             Çıkış Yap
                         </button>
