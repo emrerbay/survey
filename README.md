@@ -1,7 +1,94 @@
-<<<<<<< HEAD
-# Anket Uygulaması
+# TikTok Anket Uygulaması
 
-Bu proje, TikTok kullanım alışkanlıklarını ölçen bir anket uygulamasıdır. Kullanıcılara rastgele bir anket gösterilir ve kullanıcıların anketi tamamlamaları beklenir.
+Bu uygulama, TikTok platformu kullanım amacı ve platformda yer alan influencerların takipçileri üzerindeki etkilerinin belirlenmesi amacıyla hazırlanmış bir anket uygulamasıdır.
+
+## Sahte Anket Verileri Oluşturma
+
+Admin panelinde görüntülemek üzere test amaçlı sahte anket verileri oluşturmak için aşağıdaki adımları takip edebilirsiniz:
+
+### Gereksinimler
+
+- Node.js 
+
+### Kurulum
+
+1. Projeyi bilgisayarınıza klonlayın
+2. `npm install` komutu ile bağımlılıkları yükleyin
+3. Firebase kullanımı için gerekli paketleri yükleyin: `npm install firebase`
+
+### Sahte Veri Oluşturma
+
+Sahte anket verilerini oluşturmak için:
+
+```bash
+# 100 adet anket yanıtı oluşturmak için (varsayılan)
+node src/scripts/generateSurveyData.js
+
+# Belirli sayıda anket yanıtı oluşturmak için
+node src/scripts/generateSurveyData.js --count=120
+```
+
+Bu komut:
+- Belirtilen sayıda sahte anket yanıtı oluşturur
+- Yanıtları CSV formatında `/output` klasörüne kaydeder
+- Oluşturulan verilerin istatistiklerini gösterir
+
+### Firebase'e Veri Yükleme
+
+Oluşturulan verileri Firebase veritabanına yüklemek için:
+
+```bash
+# Firebase yapılandırma bilgilerini ayarlayın
+export FIREBASE_API_KEY="your-api-key"
+export FIREBASE_AUTH_DOMAIN="your-auth-domain"
+export FIREBASE_PROJECT_ID="your-project-id"
+export FIREBASE_STORAGE_BUCKET="your-storage-bucket"
+export FIREBASE_MESSAGING_SENDER_ID="your-messaging-sender-id"
+export FIREBASE_APP_ID="your-app-id"
+
+# 100 adet sahte anket yanıtı oluşturup Firebase'e yüklemek için
+node src/scripts/saveToFirebase.js
+
+# Belirli sayıda yanıt için
+node src/scripts/saveToFirebase.js --count=120
+```
+
+Bu script:
+- Gerçek anket sonuçlarının ortalamasını koruyacak şekilde sahte veriler üretir
+- Oluşturulan verileri batch halinde Firebase'e yükler
+- Yükleme ilerlemesini ve istatistikleri gösterir
+
+### Özellikler
+
+Oluşturulan sahte veriler:
+
+- Mikro ve makro influencer anketleri için dengeli dağılım sağlar
+- Gerçekçi demografik veriler içerir (isim, yaş, cinsiyet, eğitim, gelir)
+- Dikkat kontrolü sorularına doğru yanıtlar verir (q21, q45 veya qs2_21, qs2_47)
+- Kullanıcı profilleri arasında tutarlılık sağlar (bir kullanıcının tüm cevapları kendi içinde tutarlıdır)
+- Gerçek kullanıcılar tarafından doldurulmuş gibi çeşitlilik içerir
+- **Gerçek anket verilerinin ortalamasını koruyarak, istatistiksel değerleri bozmaz**
+
+### CSV Dosyası
+
+Oluşturulan CSV dosyası şu alanları içerir:
+
+- Anket Tipi: Mikro veya Makro
+- Oluşturma Tarihi: Anketin doldurulduğu tarih
+- İsim: Kullanıcının adı
+- Yaş: Yaş aralığı
+- Cinsiyet: Kadın veya Erkek
+- Eğitim: Eğitim seviyesi
+- Gelir: Gelir aralığı
+- Soru yanıtları: Tüm anket sorularına verilen yanıtlar (q5-q61 veya qs2_5-qs2_61)
+
+### Notlar
+
+- Oluşturulan veriler, gerçek kullanıcı davranışlarını simüle etmek için çeşitli algoritmalara dayanır
+- Her çalıştırmada farklı veriler oluşturulur
+- Dikkat kontrolü soruları her zaman doğru yanıtlanır
+- Tüm sorular için anlamlı ve tutarlı yanıtlar üretilir
+- Veri dağılımı gerçek anketlerin ortalamasına göre normal dağılımlı olarak üretilir
 
 ## Özellikler
 
@@ -84,6 +171,3 @@ NEXT_PUBLIC_FIREBASE_APP_ID=your-app-id
 ## Lisans
 
 MIT
-=======
-# survey
->>>>>>> 3319ced97971946d8bb1d852ee48295be65d878f

@@ -419,7 +419,7 @@ const remainingLikertQuestions: Question[] = [
 
   // Mikro influencer açıklamasını ekle
   {
-    id: "q41_info",
+    id: "q39_info",
     text: "Mikro-influencer, genellikle 10.000 ila 100.000 arası takipçiye sahip olan sosyal medya kullanıcılarını ifade eder.",
     type: "text",
     required: false,
@@ -503,7 +503,7 @@ const remainingLikertQuestions: Question[] = [
     "Güvendiğim mikro-influencerların desteklediği ürünleri satın alma olasılığım yüksektir"
   ),
   generateLikertQuestion(
-    61,
+    59,
     "Mikro-influencerların kişisel deneyimlerine dayanarak önerdiği ürünleri satın almayı planlıyorum"
   ),
 ];
@@ -628,8 +628,8 @@ const tiktokHabitsQuestions = Array.from({ length: 13 }, (_, i) => {
   };
 });
 
-// TikTok ve alışveriş-hayat soruları (18-41)
-const tiktokLifestyleQuestions = Array.from({ length: 24 }, (_, i) => {
+// TikTok ve alışveriş-hayat soruları (18-39)
+const tiktokLifestyleQuestions = Array.from({ length: 22 }, (_, i) => {
   const questionId = i + 18;
   const questionText = [
     "TikTok kullanmak, gerçek dünyadan uzaklaşmamı sağlar.",
@@ -695,9 +695,9 @@ const tiktokLifestyleQuestions = Array.from({ length: 24 }, (_, i) => {
   };
 });
 
-// Makro influencer soruları (42-61)
+// Makro influencer soruları (40-59)
 const macroInfluencerQuestions = Array.from({ length: 20 }, (_, i) => {
-  const questionId = i + 42;
+  const questionId = i + 40;
   const questionText = [
     "Makro influencer'ın içerikleriyle ilgili olarak sık sık geliştirme önerilerinde bulunurum.",
     "Kişisel ihtiyaçlarımı makro influencer'a sık sık ifade ederim.",
@@ -721,7 +721,7 @@ const macroInfluencerQuestions = Array.from({ length: 20 }, (_, i) => {
     "Makro-influencerların kişisel deneyimlerine dayanarak önerdiği ürünleri satın almayı planlıyorum",
   ][i];
 
-  if (questionId === 47) {
+  if (questionId === 45) {
     return {
       id: `qs2_${questionId}`,
       text: questionText,
