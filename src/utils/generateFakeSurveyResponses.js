@@ -55,17 +55,17 @@ const realSurveyMeans = {
       qs2_37: 3.0, qs2_38: 3.2, qs2_39: 3.3, qs2_40: 2.4, qs2_41: 2.3
     }
   },
-  // Influencer soruları (q42-q61 / qs2_42-qs2_61) ortalamaları
+  // Influencer soruları (q42-q59 / qs2_42-qs2_59) ortalamaları
   influencer: {
     micro: {
       q42: 2.4, q43: 2.3, q44: 2.5, // q45 tuzak soru
       q46: 2.6, q47: 2.5, q48: 2.2, q49: 2.7, q50: 2.3, q51: 3.1, q52: 3.0,
-      q53: 3.2, q54: 2.9, q55: 2.8, q56: 3.3, q57: 3.4, q58: 3.2, q59: 3.1, q60: 3.0, q61: 3.1
+      q53: 3.2, q54: 2.9, q55: 2.8, q56: 3.3, q57: 3.4, q58: 3.2, q59: 3.1
     },
     macro: {
-      qs2_42: 2.3, qs2_43: 2.2, qs2_44: 2.4, qs2_45: 2.3, qs2_46: 2.5, // qs2_47 tuzak soru
+      qs2_42: 2.3, qs2_43: 2.2, qs2_44: 2.4, qs2_46: 2.5, qs2_47: 2.3, // qs2_45 tuzak soru
       qs2_48: 2.1, qs2_49: 2.6, qs2_50: 2.2, qs2_51: 3.0, qs2_52: 2.9, qs2_53: 3.1, 
-      qs2_54: 2.8, qs2_55: 2.7, qs2_56: 3.2, qs2_57: 3.3, qs2_58: 3.1, qs2_59: 3.0, qs2_60: 2.9, qs2_61: 3.0
+      qs2_54: 2.8, qs2_55: 2.7, qs2_56: 3.2, qs2_57: 3.3, qs2_58: 3.1, qs2_59: 3.0
     }
   }
 };
@@ -189,7 +189,7 @@ const generateSurveyResponse = (surveyType) => {
     const questionId = `${idPrefix}${i}`;
     
     // Tuzak sorular için doğru cevapları ayarlayalım
-    if ((isMicro && i === 21) || (!isMicro && i === 21)) {
+    if (i === 21) {
       answers[questionId] = 2; // "2 = Katılmıyorum" seçeneği
     } else {
       // Gerçek ortalamaları kullan
@@ -219,12 +219,12 @@ const generateSurveyResponse = (surveyType) => {
     }
   }
   
-  // Influencer soruları (40-61)
-  for (let i = 40; i <= 61; i++) {
+  // Influencer soruları (40-59)
+  for (let i = 40; i <= 59; i++) {
     const questionId = `${idPrefix}${i}`;
     
     // Tuzak sorular için doğru cevapları ayarlayalım
-    if ((isMicro && i === 45) || (!isMicro && i === 47)) {
+    if (i === 45) {
       answers[questionId] = 5; // "5 = Kesinlikle katılıyorum" seçeneği
     } else {
       // Gerçek ortalamaları kullan
@@ -336,7 +336,4 @@ const convertToCSV = (responses) => {
 };
 
 // Dışa aktarma
-module.exports = {
-  generateFakeSurveyResponses,
-  convertToCSV
-}; 
+export { generateFakeSurveyResponses, convertToCSV }; 

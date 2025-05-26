@@ -80,7 +80,7 @@ Oluşturulan CSV dosyası şu alanları içerir:
 - Cinsiyet: Kadın veya Erkek
 - Eğitim: Eğitim seviyesi
 - Gelir: Gelir aralığı
-- Soru yanıtları: Tüm anket sorularına verilen yanıtlar (q5-q61 veya qs2_5-qs2_61)
+- Soru yanıtları: Tüm anket sorularına verilen yanıtlar (q5-q59 veya qs2_5-qs2_59)
 
 ### Notlar
 

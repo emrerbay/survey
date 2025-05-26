@@ -1,10 +1,8 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
-const path = require('path');
-const { initializeApp } = require('firebase/app');
-const { getFirestore, collection, addDoc, serverTimestamp } = require('firebase/firestore');
-const { generateFakeSurveyResponses } = require('../utils/generateFakeSurveyResponses');
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import { generateFakeSurveyResponses } from '../utils/generateFakeSurveyResponses.js';
 
 // Firebase yapılandırması - Projenin kendi yapılandırması
 const firebaseConfig = {
@@ -109,10 +107,10 @@ async function main() {
       // İlk dikkat kontrolü sorusu (q21 veya qs2_21) "2" olmalı
       const firstCheck = r.answers[`${idPrefix}21`] === 2;
       
-      // İkinci dikkat kontrolü sorusu (q45 veya qs2_47) "5" olmalı
+      // İkinci dikkat kontrolü sorusu (q45 veya qs2_45) "5" olmalı
       const secondCheck = r.surveyType === 'mikro' 
         ? r.answers[`${idPrefix}45`] === 5
-        : r.answers[`${idPrefix}47`] === 5;
+        : r.answers[`${idPrefix}45`] === 5;
         
       return firstCheck && secondCheck;
     }).length;

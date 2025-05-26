@@ -1,8 +1,13 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
-const path = require('path');
-const { generateFakeSurveyResponses, convertToCSV } = require('../utils/generateFakeSurveyResponses');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { generateFakeSurveyResponses, convertToCSV } from '../utils/generateFakeSurveyResponses.js';
+
+// __dirname yerine kullanmak için gerekli
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Komut satırı argümanlarını işle
 const args = process.argv.slice(2);
@@ -47,7 +52,7 @@ const correctAttentionChecks = responses.filter(r => {
   // İlk dikkat kontrolü sorusu (q21 veya qs2_21) "2" olmalı
   const firstCheck = r.answers[`${idPrefix}21`] === 2;
   
-  // İkinci dikkat kontrolü sorusu (q45 veya qs2_47) "5" olmalı
+  // İkinci dikkat kontrolü sorusu (q45 veya qs2_45) "5" olmalı
   const secondCheck = r.surveyType === 'mikro' 
     ? r.answers[`${idPrefix}45`] === 5
     : r.answers[`${idPrefix}45`] === 5;
